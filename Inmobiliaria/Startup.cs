@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Inmobiliaria.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -33,6 +34,11 @@ namespace Inmobiliaria
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddTransient<IRepositorio<Propietario>,RepositorioPropietario>();
+            services.AddTransient<IRepositorio<Inmueble>, RepositorioInmueble>();
+            services.AddTransient<IRepositorio<Pago>, RepositorioPago>();
+            services.AddTransient<IRepositorio<Contrato>, RepositorioContrato>();
+            services.AddTransient<IRepositorio<Inquilino>, RepositorioInquilino>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,7 +63,7 @@ namespace Inmobiliaria
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Login}/{id?}");
             });
         }
     }
