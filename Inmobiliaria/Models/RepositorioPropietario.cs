@@ -20,8 +20,8 @@ namespace Inmobiliaria.Models
             int res = -1;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sql = $"INSERT INTO Propietario (nombre, apellido, dni, telefono, email, contraseña,direccion) " +
-                    $"VALUES ('{p.Nombre}', '{p.Apellido}','{p.Dni}','{p.Telefono}','{p.Email}','{p.Contraseña}','{p.Direccion}')";
+                string sql = $"INSERT INTO Propietario (nombre, apellido, dni, telefono, email, clave,domicilio) " +
+                    $"VALUES ('{p.Nombre}', '{p.Apellido}','{p.Dni}','{p.Telefono}','{p.Email}','{p.Clave}','{p.Direccion}')";
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
                     command.CommandType = CommandType.Text;
@@ -56,7 +56,7 @@ namespace Inmobiliaria.Models
             int res = -1;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sql = $"UPDATE Propietario SET nombre='{p.Nombre}', Apellido='{p.Apellido}', dni'={p.Dni}', telefono'={p.Telefono}', email'={p.Email}', contraseña'={p.Contraseña}', direccion'={p.Direccion}' " +
+                string sql = $"UPDATE Propietario SET nombre='{p.Nombre}', Apellido='{p.Apellido}', dni'={p.Dni}', telefono'={p.Telefono}', email'={p.Email}', contraseña'={p.Clave}', domicilio'={p.Direccion}' " +
                     $"WHERE Id = {p.IdPropietario}";
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
@@ -74,7 +74,7 @@ namespace Inmobiliaria.Models
             IList<Propietario> res = new List<Propietario>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sql = $"SELECT Id, nombre, apellido, dni, telefono, email, contraseña,direccion" +
+                string sql = $"SELECT Id, nombre, apellido, dni, telefono, email, clave,domicilio" +
                     $" FROM Propietario";
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
@@ -91,8 +91,8 @@ namespace Inmobiliaria.Models
                             Dni = (int)reader["dni"],
                             Telefono = (int)reader["telefono"],
                             Email = reader["email"].ToString(),
-                            Contraseña = reader["contraseña"].ToString(),
-                            Direccion = reader["direccion"].ToString(),
+                            Clave = reader["clave"].ToString(),
+                            Direccion = reader["domicilio"].ToString(),
                         };
                         res.Add(p);
                     }
@@ -107,7 +107,7 @@ namespace Inmobiliaria.Models
             Propietario p = null;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sql = $"SELECT Id, nombre, apellido, dni, telefono, email, contraseña,direccion FROM Propietario" +
+                string sql = $"SELECT Id, nombre, apellido, dni, telefono, email, clave,domicilio FROM Propietario" +
                     $" WHERE Id=@id";
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
@@ -125,8 +125,8 @@ namespace Inmobiliaria.Models
                             Dni = (int)reader["dni"],
                             Telefono = (int)reader["telefono"],
                             Email = reader["email"].ToString(),
-                            Contraseña = reader["contraseña"].ToString(),
-                            Direccion = reader["direccion"].ToString(),
+                            Clave = reader["contraseña"].ToString(),
+                            Direccion = reader["domicilio"].ToString(),
                         };
                     }
                     connection.Close();

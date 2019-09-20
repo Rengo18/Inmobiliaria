@@ -46,8 +46,8 @@ namespace Inmobiliaria.Controllers
                 
                 if (ModelState.IsValid)
                 {
-                    propietario.Contraseña = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                        password: propietario.Contraseña,
+                    propietario.Clave = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                        password: propietario.Clave,
                         salt: System.Text.Encoding.ASCII.GetBytes("SALADA"),
                         prf: KeyDerivationPrf.HMACSHA1,
                         iterationCount: 1000,
