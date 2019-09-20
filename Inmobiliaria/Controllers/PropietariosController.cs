@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Inmobiliaria.Models;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +11,12 @@ namespace Inmobiliaria.Controllers
 {
     public class PropietariosController : Controller
     {
+        private readonly IRepositorio<Propietario> repositorio;
+
+        public PropietariosController(IRepositorio<Propietario> repositorio)
+        {
+            this.repositorio = repositorio;
+        }
         // GET: Propietarios
         public ActionResult Index()
         {
@@ -20,8 +28,9 @@ namespace Inmobiliaria.Controllers
         {
             return View();
         }
-
+        [HttpGet]
         // GET: Propietarios/Create
+        [Route("Propietarios/Create", Name = "CreatePropietario")]
         public ActionResult Create()
         {
             return View();
@@ -30,16 +39,32 @@ namespace Inmobiliaria.Controllers
         // POST: Propietarios/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Propietario propietario)
         {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction(nameof(Index));
+                
+                if (ModelState.IsValid)
+                {
+                    propietario.Contraseña = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                        password: propietario.Contraseña,
+                        salt: System.Text.Encoding.ASCII.GetBytes("SALADA"),
+                        prf: KeyDerivationPrf.HMACSHA1,
+                        iterationCount: 1000,
+                        numBytesRequested: 256 / 8));
+                    repositorio.Alta(propietario);
+                    TempData["Id"] = propietario.IdPropietario;
+                    return RedirectToAction("Login","Home");
+                }
+                else
+                {
+                    return View();
+                }
             }
-            catch
+            catch(Exception ex)
             {
+                ViewBag.Error = ex.Message;
+                ViewBag.StackTrate = ex.StackTrace;
                 return View();
             }
         }

@@ -4,21 +4,21 @@
 }
 
 <div class="login">
-   <div class="login_div_form">
-       <div>
-           <h1>Inmobiliaria</h1>
-           <p>Colombo</p>
-       </div>
-       <form asp-action="/">
-           <h4>Email</h4>
-           <input type="email" name="email" placeholder="email"/>
-           <h4>Contraseña</h4>
-           <input type="password" name="contraseña" placeholder="****"/>
-           <div>
-               <input type="submit" name="ingresar" value="Ingresar" />
-           </div>   
-       </form>
-       <a asp-action="/">Registrate</a>
-   </div> 
+    <div class="login_div_form">
+        <div>
+            <h1>Inmobiliaria</h1>
+            <p>Colombo</p>
+        </div>
+        <form asp-action="/">
+            <h4>Email</h4>
+            <input type="email" name="email" placeholder="email" />
+            <h4>Contraseña</h4>
+            <input type="password" name="contraseña" placeholder="****" />
+            <div>
+                <input type="submit" name="ingresar" value="Ingresar" />
+            </div>
+        </form>
+        <a asp-route="CreatePropietario">Registrate</a>
+    </div>
 </div>
 

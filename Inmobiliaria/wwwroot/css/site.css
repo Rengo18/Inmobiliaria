@@ -1,7 +1,11 @@
 ﻿body{
     margin:0;
     background-color: royalblue;
+    width:100vw;
+    height:100vh;
 }
+
+/*HOME*/
 .login{
    display:flex;
    justify-content:center;
@@ -88,4 +92,15 @@
 
 .login_div_form div input:hover {
      background-color:lightgray;  
+}
+
+
+ /*PROPIETARIO*/
+.Create_Propietario {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height:100vh;
+   
 }
