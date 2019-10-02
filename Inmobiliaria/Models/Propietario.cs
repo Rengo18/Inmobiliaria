@@ -21,10 +21,10 @@ namespace Inmobiliaria.Models
         public String Clave { get; set; }
         [Required]
         public String Direccion { get; set; }
-        [EmailAddress]
+        [DataType(DataType.EmailAddress)]
         public String Email { get; set; }
         [Required]
-        public int Telefono { get; set; }
+        public long Telefono { get; set; }
 
     }
 }

@@ -18,6 +18,7 @@ namespace Inmobiliaria.Controllers
             this.repositorio = repositorio;
         }
         // GET: Propietarios
+        [Route("Propietarios/Index", Name = "IndexPropietario")]
         public ActionResult Index()
         {
             return View();

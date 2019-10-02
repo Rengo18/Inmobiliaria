@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Inmobiliaria.Models
 {
-    public class RepositorioPropietario : RepositorioBase , IRepositorio<Propietario>
+    public class RepositorioPropietario : RepositorioBase, IRepositorioPropietario
     {
         public RepositorioPropietario(IConfiguration configuration) : base(configuration)
         {
@@ -89,7 +89,7 @@ namespace Inmobiliaria.Models
                             Nombre = reader["nombre"].ToString(),
                             Apellido = reader["apellido"].ToString(),
                             Dni = (int)reader["dni"],
-                            Telefono = (int)reader["telefono"],
+                            Telefono = (long)reader["telefono"],
                             Email = reader["email"].ToString(),
                             Clave = reader["clave"].ToString(),
                             Direccion = reader["domicilio"].ToString(),
@@ -123,7 +123,7 @@ namespace Inmobiliaria.Models
                             Nombre = reader["nombre"].ToString(),
                             Apellido = reader["apellido"].ToString(),
                             Dni = (int)reader["dni"],
-                            Telefono = (int)reader["telefono"],
+                            Telefono = (long)reader["telefono"],
                             Email = reader["email"].ToString(),
                             Clave = reader["contraseña"].ToString(),
                             Direccion = reader["domicilio"].ToString(),
@@ -135,5 +135,38 @@ namespace Inmobiliaria.Models
             return p;
         }
 
+        public Propietario ObtenerPorEmail(string email)
+        {
+            Propietario p = null;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string sql = $"SELECT Id, nombre, apellido, dni, telefono, email, clave,domicilio FROM Propietarios" +
+                    $" WHERE email=@email";
+                using (SqlCommand command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.Add("@email", SqlDbType.VarChar).Value = email;
+                    command.CommandType = CommandType.Text;
+                    connection.Open();
+                    var reader = command.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        p = new Propietario
+                        {
+                            IdPropietario = reader.GetInt32(0),
+                            Nombre = reader["nombre"].ToString(),
+                            Apellido = reader["apellido"].ToString(),
+                            Dni = (int)reader["dni"],
+                            Telefono = (long)reader["telefono"],
+                            Email = reader["email"].ToString(),
+                            Clave = reader["contraseña"].ToString(),
+                            Direccion = reader["domicilio"].ToString(),
+                        };
+                    }
+                    connection.Close();
+                }
+            }
+            return p;
+
+        }
     }
 }

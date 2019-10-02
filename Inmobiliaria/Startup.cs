@@ -11,29 +11,34 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace Inmobiliaria
 {
     public class Startup
     {
+        private readonly IConfiguration configuration;
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options =>
-                {
-                    options.LoginPath = "/Home/Login";
-                    options.LogoutPath = "/Home/Logout";
-                    options.AccessDeniedPath = "/Home/Restringido";
-                });
-
+               .AddCookie(options =>
+               {
+                   options.LoginPath = "/Home/Login";
+                   options.LogoutPath = "/Home/Logout";
+                   options.AccessDeniedPath = "/Home/Restringido";
+               });
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Administrador", policy => policy.RequireClaim(ClaimTypes.Role, "Administrador"));
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddTransient<IRepositorio<Propietario>,RepositorioPropietario>();
@@ -41,11 +46,18 @@ namespace Inmobiliaria
             services.AddTransient<IRepositorio<Pago>, RepositorioPago>();
             services.AddTransient<IRepositorio<Contrato>, RepositorioContrato>();
             services.AddTransient<IRepositorio<Inquilino>, RepositorioInquilino>();
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseStaticFiles();
+            app.UseCookiePolicy(new CookiePolicyOptions
+            {
+                MinimumSameSitePolicy = SameSiteMode.None,
+            });
+            app.UseAuthentication();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
