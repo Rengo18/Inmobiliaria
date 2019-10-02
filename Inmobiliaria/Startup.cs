@@ -41,11 +41,11 @@ namespace Inmobiliaria
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddTransient<IRepositorio<Propietario>,RepositorioPropietario>();
+            /*services.AddTransient<IRepositorio<Propietario>,RepositorioPropietario>();
             services.AddTransient<IRepositorio<Inmueble>, RepositorioInmueble>();
             services.AddTransient<IRepositorio<Pago>, RepositorioPago>();
             services.AddTransient<IRepositorio<Contrato>, RepositorioContrato>();
-            services.AddTransient<IRepositorio<Inquilino>, RepositorioInquilino>();
+            services.AddTransient<IRepositorio<Inquilino>, RepositorioInquilino>();*/
             services.AddDbContext<DataContext>(options => options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"]));
         }
 

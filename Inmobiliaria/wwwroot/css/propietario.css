@@ -1,0 +1,49 @@
+﻿
+/*PROPIETARIO*/
+.Create_Propietario {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.Create_Propietario > div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction:column;
+    background-color: white;
+    border: 1px solid royalblue;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+    .Create_Propietario form {
+        display: flex;
+        flex-direction: column;
+        justify-content:center;
+        align-items: center;
+    }
+        .Create_Propietario form >div {
+            display:flex;
+            align-items:center;
+            flex-wrap:wrap;
+            flex-direction:column;
+        }
+        .Create_Propietario form div > input {
+            border: 1px solid gray;
+            border-radius: 5px;
+            padding: 5px;
+            height: 30px;
+            outline: none;
+        }
+    .Create_Propietario  a {
+        margin-top :5px;
+        text-decoration: none;
+        color: aqua;
+    }
+    .Create_Propietario  a:hover {
+            color: black;
+            text-decoration:underline;
+        }

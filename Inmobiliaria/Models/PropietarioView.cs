@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace Inmobiliaria.Models
 {
-    public class Propietario
+    public class PropietarioView
     {
-        
-        [Key]
-        public int Id { get; set; }
-        [Required]
         public String Nombre { get; set; }
         [Required]
         public String Apellido { get; set; }
@@ -25,6 +21,5 @@ namespace Inmobiliaria.Models
         public String Email { get; set; }
         [Required]
         public long Telefono { get; set; }
-
     }
 }

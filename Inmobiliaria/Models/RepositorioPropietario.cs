@@ -21,7 +21,7 @@ namespace Inmobiliaria.Models
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string sql = $"INSERT INTO Propietario (nombre, apellido, dni, telefono, email, clave,domicilio) " +
-                    $"VALUES ('{p.Nombre}', '{p.Apellido}','{p.Dni}','{p.Telefono}','{p.Email}','{p.Clave}','{p.Direccion}')";
+                    $"VALUES ('{p.Nombre}', '{p.Apellido}','{p.Dni}','{p.Telefono}','{p.Email}','{p.Clave}','{p.Domicilio}')";
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
                     command.CommandType = CommandType.Text;
@@ -29,7 +29,7 @@ namespace Inmobiliaria.Models
                     res = command.ExecuteNonQuery();
                     command.CommandText = "SELECT SCOPE_IDENTITY()";
                     var id = command.ExecuteScalar();
-                    p.IdPropietario = Convert.ToInt32(id);
+                    p.Id = Convert.ToInt32(id);
                     connection.Close();
                 }
             }
@@ -56,8 +56,8 @@ namespace Inmobiliaria.Models
             int res = -1;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sql = $"UPDATE Propietario SET nombre='{p.Nombre}', Apellido='{p.Apellido}', dni'={p.Dni}', telefono'={p.Telefono}', email'={p.Email}', contraseña'={p.Clave}', domicilio'={p.Direccion}' " +
-                    $"WHERE Id = {p.IdPropietario}";
+                string sql = $"UPDATE Propietario SET nombre='{p.Nombre}', Apellido='{p.Apellido}', dni'={p.Dni}', telefono'={p.Telefono}', email'={p.Email}', contraseña'={p.Clave}', domicilio'={p.Domicilio}' " +
+                    $"WHERE Id = {p.Id}";
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
                     command.CommandType = CommandType.Text;
@@ -85,14 +85,14 @@ namespace Inmobiliaria.Models
                     {
                         Propietario p = new Propietario
                         {
-                            IdPropietario = reader.GetInt32(0),
+                            Id = reader.GetInt32(0),
                             Nombre = reader["nombre"].ToString(),
                             Apellido = reader["apellido"].ToString(),
                             Dni = (int)reader["dni"],
                             Telefono = (long)reader["telefono"],
                             Email = reader["email"].ToString(),
                             Clave = reader["clave"].ToString(),
-                            Direccion = reader["domicilio"].ToString(),
+                            Domicilio = reader["domicilio"].ToString(),
                         };
                         res.Add(p);
                     }
@@ -119,14 +119,14 @@ namespace Inmobiliaria.Models
                     {
                         p = new Propietario
                         {
-                            IdPropietario = reader.GetInt32(0),
+                            Id = reader.GetInt32(0),
                             Nombre = reader["nombre"].ToString(),
                             Apellido = reader["apellido"].ToString(),
                             Dni = (int)reader["dni"],
                             Telefono = (long)reader["telefono"],
                             Email = reader["email"].ToString(),
                             Clave = reader["contraseña"].ToString(),
-                            Direccion = reader["domicilio"].ToString(),
+                            Domicilio = reader["domicilio"].ToString(),
                         };
                     }
                     connection.Close();
@@ -152,14 +152,14 @@ namespace Inmobiliaria.Models
                     {
                         p = new Propietario
                         {
-                            IdPropietario = reader.GetInt32(0),
+                            Id = reader.GetInt32(0),
                             Nombre = reader["nombre"].ToString(),
                             Apellido = reader["apellido"].ToString(),
                             Dni = (int)reader["dni"],
                             Telefono = (long)reader["telefono"],
                             Email = reader["email"].ToString(),
                             Clave = reader["contraseña"].ToString(),
-                            Direccion = reader["domicilio"].ToString(),
+                            Domicilio = reader["domicilio"].ToString(),
                         };
                     }
                     connection.Close();

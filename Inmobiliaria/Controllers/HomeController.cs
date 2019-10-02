@@ -15,12 +15,12 @@ namespace Inmobiliaria.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IRepositorioPropietario propietarios;
+      
         private readonly DataContext contexto;
 
-        public HomeController(IRepositorioPropietario propietarios, DataContext contexto)
+        public HomeController( DataContext contexto)
         {
-            this.propietarios = propietarios;
+            
             this.contexto = contexto;
         }
 
@@ -35,12 +35,20 @@ namespace Inmobiliaria.Controllers
             return View();
         }
 
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginView loginView)
         {
             try
             {
+
+                if(loginView.Email==null || loginView.Clave == null)
+                {
+                    ViewBag.Mensaje = "complete todos los datos";
+                    return View();
+                }
 
                 string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                     password: loginView.Clave,
@@ -49,16 +57,19 @@ namespace Inmobiliaria.Controllers
                     iterationCount: 1000,
                     numBytesRequested: 256 / 8));
 
-                var p = propietarios.ObtenerPorEmail(loginView.Usuario);
-                if (p == null || p.Clave != hashed)
+                Propietario p =contexto.Propietario.FirstOrDefault(x => x.Email == loginView.Email && x.Clave==hashed);
+
+                
+
+                if (p == null)
                 {
-                    ViewBag.Mensaje = "Datos inválidos";
+                    ViewBag.Mensaje = "El email o el password estan mal escrito";
                     return View();
                 }
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, p.Email),
-                    new Claim("FullName", p.Nombre + " " + p.Apellido),
+                    new Claim(ClaimTypes.Email, p.Email ),
+                    new Claim("Nombre Completo", p.Nombre + " " + p.Apellido),
                     
                 };
 
@@ -93,7 +104,7 @@ namespace Inmobiliaria.Controllers
                     CookieAuthenticationDefaults.AuthenticationScheme,
                     new ClaimsPrincipal(claimsIdentity),
                     authProperties);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Propietarios");
             }
             catch (Exception ex)
             {

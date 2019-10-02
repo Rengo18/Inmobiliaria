@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Login";
 }
 
@@ -9,15 +8,17 @@
             <h1>Inmobiliaria</h1>
             <p>Colombo</p>
         </div>
-        <form asp-route="IndexPropietario">
+        <form asp-action="Login" asp-controller="Home">
             <h4>Email</h4>
             <input type="email" name="email" placeholder="email" />
             <h4>Contraseña</h4>
-            <input type="password" name="contraseña" placeholder="****" />
+            <input type="password" name="clave" placeholder="****" />
             <div>
                 <input type="submit" name="ingresar" value="Ingresar" />
             </div>
         </form>
+        <span style="color:red">@ViewBag.Mensaje</span>
+        <span style="color:forestgreen">@TempData["mensaje"]</span>
         <a asp-route="CreatePropietario">Registrate</a>
     </div>
 </div>

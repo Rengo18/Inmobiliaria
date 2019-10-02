@@ -5,54 +5,49 @@
 }
 
 
+ <div class="Create_Propietario ">
+     <div>
+         <h1>Registrarse</h1>
+         <form asp-action="Create">
 
-
-
-
- <div class="Create_Propietario">
-        <h1>Registrarse</h1>
-        <form asp-action="Create">
-            
-            <div>
-                <label asp-for="Nombre"></label>
-                <input asp-for="Nombre" />
-                <span asp-validation-for="Nombre"></span>
-            </div>
              <div>
-                <label asp-for="Apellido"></label>
-                <input asp-for="Apellido" />
-                <span asp-validation-for="Apellido"></span>
-            </div>
-            <div>
-                <label asp-for="Dni"></label>
-                <input asp-for="Dni" />
-                <span asp-validation-for="Dni"></span>
-            </div>
-            <div>
-                <label asp-for="Clave"></label>
-                <input asp-for="Clave" />
-                <span asp-validation-for="Clave"></span>
-            </div>
-            <div>
-                <label asp-for="Direccion"></label>
-                <input asp-for="Direccion" />
-                <span asp-validation-for="Direccion"></span>
-            </div>
-            <div>
-                <label asp-for="Email"></label>
-                <input asp-for="Email" />
-                <span asp-validation-for="Email"></span>
-            </div>
-            <div>
-                <label asp-for="Telefono"></label>
-                <input asp-for="Telefono" />
-                <span asp-validation-for="Telefono"></span>
-            </div>
-            <div>
-                <input type="submit" value="Registrar" />
-            </div>
-        </form>
-        <a asp-controller="Home" asp-action="Login">Volver</a>
+                 <label asp-for="Nombre"></label>
+                 <input asp-for="Nombre" />
+
+
+
+                 <label asp-for="Apellido"></label>
+                 <input asp-for="Apellido" />
+
+            
+                 <label asp-for="Dni"></label>
+                 <input asp-for="Dni" />
+
+
+
+                 <label asp-for="Clave"></label>
+                 <input asp-for="Clave" />
+
+            
+                 <label asp-for="Domicilio"></label>
+                 <input asp-for="Domicilio" />
+
+
+
+                 <label asp-for="Email"></label>
+                 <input asp-for="Email" />
+
+            
+                 <label asp-for="Telefono"></label>
+                 <input asp-for="Telefono" />
+             </div>
+
+                 <input type="submit" value="Registrar" style="margin-top:10px" />
+
+         </form>
+         <span>@ViewBag.registrado</span>
+         <a asp-controller="Home" asp-action="Login">Volver</a>
+     </div>
  </div>
 
 
