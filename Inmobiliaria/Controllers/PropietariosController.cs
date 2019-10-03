@@ -63,8 +63,12 @@ namespace Inmobiliaria.Controllers
                         Clave = propietarioView.Clave,
                         Domicilio = propietarioView.Domicilio
                     };
-
-
+                    Propietario propietarioVerificar = contexto.Propietario.FirstOrDefault(x => x.Dni == p.Dni || x.Email == p.Email);
+                    if (propietarioVerificar != null)
+                    {
+                        ViewBag.registrado = "ya existe un Propietario con ese email o dni";
+                        return View();
+                    }
                     contexto.Propietario.Add(p);
                     contexto.SaveChanges();
                     int i = p.Id;
