@@ -17,13 +17,11 @@
                 <option value="Propietario" selected>Propietario</option>
                 <option value="Administrador">Administrador</option>
             </select>
-            <div>
-                
+            <div> 
                 <input type="submit" name="ingresar" value="Ingresar" />
             </div>
         </form>
         <span style="color:red">@ViewBag.Mensaje</span>
-        <span style="color:forestgreen">@TempData["mensaje"]</span>
         <a asp-route="CreatePropietario">Registrate</a>
     </div>
 </div>

@@ -22,7 +22,6 @@ namespace Inmobiliaria.Controllers
         
         [Authorize(Policy = "Administrador")]
         // GET: Propietarios
-        [Authorize]
         public ActionResult Index()
         {
             //IList<Propietario> propietarios = contexto.Propietario.Select(x => x).ToList();
@@ -37,17 +36,19 @@ namespace Inmobiliaria.Controllers
 
         // GET: Propietarios/Details/5
         public ActionResult Details(int id)
-        {
+        {   
             return View();
         }
         [HttpGet]
+
+
         // GET: Propietarios/Create
-        [Route("Propietarios/Create", Name = "CreatePropietario")]
+        [Authorize(Policy = "Administrador")]
         public ActionResult Create()
         {
             return View();
         }
-
+        [Authorize(Policy = "Administrador")]
         // POST: Propietarios/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -84,8 +85,8 @@ namespace Inmobiliaria.Controllers
                     int i = p.Id;
                     if (i!=0)
                     {
-                        TempData["mensaje"]= "Gracias por registrarte";
-                        return RedirectToAction("Login", "Home");
+                        
+                        return RedirectToAction("ListaPropietarios", "Propietarios");
                     }
                     else
                     {
@@ -111,22 +112,50 @@ namespace Inmobiliaria.Controllers
         // GET: Propietarios/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Propietario propietario = contexto.Propietario.First(x => x.Id == id);
+            return View(propietario);
         }
 
         // POST: Propietarios/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit( PropietarioView propietario)
         {
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
+                if (propietario.Dni != 0 && propietario.Nombre != null && propietario.Apellido != null && propietario.Domicilio != null && propietario.Telefono != 0 && propietario.Email != null && propietario.Clave != null)
+                {
+                    propietario.Clave = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                      password: propietario.Clave,
+                      salt: System.Text.Encoding.ASCII.GetBytes("SALADA"),
+                      prf: KeyDerivationPrf.HMACSHA1,
+                      iterationCount: 1000,
+                      numBytesRequested: 256 / 8));
+                    p = new Propietario
+                    {   Id = propietario.Id,
+                        Dni = propietario.Dni,
+                        Nombre = propietario.Nombre,
+                        Apellido = propietario.Apellido,
+                        Email = propietario.Email,
+                        Telefono = propietario.Telefono,
+                        Clave = propietario.Clave,
+                        Domicilio = propietario.Domicilio
+                    };
+                    contexto.Propietario.Update(p);
+                    contexto.SaveChanges();
+                    TempData["Editado"] = "Usuario Modificado";
+                    return RedirectToAction("ListaPropietarios");
+                }else
+                {
+                    ViewBag.Error = "ingrese Todos los datos";
+                    return View();
+                }
+               
+               
             }
-            catch
+            catch(Exception ex)
             {
+                ViewBag.exception = ex;
                 return View();
             }
         }
@@ -134,24 +163,34 @@ namespace Inmobiliaria.Controllers
         // GET: Propietarios/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            Propietario propietario=contexto.Propietario.First(x => x.Id == id);
+            return View(propietario);
         }
 
         // POST: Propietarios/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(PropietarioView propietario)
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
+                Propietario p = contexto.Propietario.First(x => x.Id == propietario.Id);
+                
+                contexto.Propietario.Remove(p);
+                contexto.SaveChanges();
+                return RedirectToAction("ListaPropietarios");
             }
-            catch
+            catch(Exception ex)
             {
+                ViewBag.Mensaje = ex;
                 return View();
             }
+        }
+
+
+        public ActionResult BuscarPropietario()
+        {
+            return View();
         }
     }
 }

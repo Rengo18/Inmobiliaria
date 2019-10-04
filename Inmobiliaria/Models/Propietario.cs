@@ -19,7 +19,7 @@ namespace Inmobiliaria.Models
         public int Dni { get; set; }
         [DataType(DataType.Password)]
         public String Clave { get; set; }
-        
+      
         public String Domicilio { get; set; }
         [DataType(DataType.EmailAddress)]
         public String Email { get; set; }
