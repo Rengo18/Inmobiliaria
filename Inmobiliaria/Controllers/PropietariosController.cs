@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Inmobiliaria.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -18,11 +19,20 @@ namespace Inmobiliaria.Controllers
         {
              this.contexto = contexto;
         }
+        
+        [Authorize(Policy = "Administrador")]
         // GET: Propietarios
         [Authorize]
         public ActionResult Index()
         {
+            //IList<Propietario> propietarios = contexto.Propietario.Select(x => x).ToList();
             return View();
+        }
+        [Authorize(Policy = "Administrador")]
+        public ActionResult ListaPropietarios()
+        {
+            IEnumerable<Propietario> pro = contexto.Propietario.ToList();
+            return View(pro);
         }
 
         // GET: Propietarios/Details/5

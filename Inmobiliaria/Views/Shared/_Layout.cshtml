@@ -6,8 +6,34 @@
     <title>@ViewData["Title"] - Inmobiliaria</title>
     <link href="@Url.Content("~/css/site.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/css/propietario.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/admin.css")" rel="stylesheet" type="text/css" />
 </head>
-    <body>
-        @RenderBody()
-    </body>
+<body>
+    @if(User.IsInRole("Administrador"))
+    {
+        <div class="admin">
+            <nav>
+                <div>
+                    <a asp-action="index" asp-controller="Propietarios">Propietarios</a>
+                </div>
+                <div>
+                    <a asp-action="index" asp-controller="Inmuebles">Inmuebles</a>
+                </div>
+                <div>
+                    <a asp-action="index" asp-controller="Inquilinos">Inquilinos</a>
+                </div>
+                <div>
+                    <a asp-action="index" asp-controller="Contratos">Contratos</a>
+                </div>
+                <div>
+                    <a asp-action="index" asp-controller="Pagos">Pagos</a>
+                </div>
+                <div>
+                    <a asp-action="Logout" asp-controller="Home">Cerrar Sesion</a>
+                </div>
+            </nav>
+        </div>
+    }
+    @RenderBody()
+</body>
 </html>

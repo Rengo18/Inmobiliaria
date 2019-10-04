@@ -3,5 +3,5 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Home Propietario</h1>
+<h1>Home Propietario Bienvenido @User.Claims.FirstOrDefault(c => c.Type == "Nombre").Value</h1>
 

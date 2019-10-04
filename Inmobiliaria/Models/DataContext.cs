@@ -13,5 +13,6 @@ namespace Inmobiliaria.Models
 
         }
         public DbSet<Propietario> Propietario { get; set; }
+        public DbSet<Admin> Admin { get; set; }
     }
 }

@@ -1,0 +1,28 @@
+﻿.admin{
+    display:flex;
+    flex-direction:column;
+
+}
+
+.admin > nav {
+    display:flex;
+    flex-direction:row;
+    align-content:center;
+    justify-content:space-around;
+    background-color:white;
+    padding:5px;
+}
+
+    .admin > nav > div {
+        border-right: 1px solid black;
+        border-left: 1px solid black;
+    }
+.admin > nav> div:hover{
+     border-right:1px solid black;
+     background-color:lightgray;
+}
+.admin > nav> div a {
+        text-decoration: none;
+        color: black;
+        font-size:25px;
+    }
