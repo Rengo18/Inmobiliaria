@@ -9,12 +9,22 @@ namespace Inmobiliaria.Models
     public class Contrato
     {
         [Key]
-        public int IdContrato { get; set; }
+        public int Id{ get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode =true)]
         public DateTime FechaInicio { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaCierre { get; set; }
         public Decimal Monto { get; set; }
-        public Inmueble Inmueble { get; set; }
-        public Inquilino Inquilino { get; set; }
+        public int InmuebleId { get; set; }
+
+        public int InquilinoId { get; set; }
+
+
+
+        public virtual Inmueble Inmueble { get; set; }
+        public virtual Inquilino Inquilino { get; set; }
 
     }
 }

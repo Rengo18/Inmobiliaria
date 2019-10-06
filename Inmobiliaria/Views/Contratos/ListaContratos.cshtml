@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Inmobiliaria.Models.Contrato>
+
+@{
+    ViewData["Title"] = "ListaContratos";
+}
+
+
+    <div class="div_tabla">
+
+        <h1>Lista de Contratos</h1>
+        @if (Model.Count() == 0)
+        {
+            <h3>No hay Contratos</h3>
+        }
+        else
+        {
+            <table class="tableListaPropietario">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FechaInicio)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FechaCierre)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Monto)
+                        </th>
+                        <th>
+                            Direccion Inmueble
+                        </th>
+                        <th>
+                            Propietario
+                        </th>
+                        <th>
+                            Inquilino
+                        </th>
+                        <th>
+                            Acciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FechaInicio)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FechaCierre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Monto)
+                            </td>
+                            <td>
+                                @(item.Inmueble.Direccion)
+                            </td>
+                            <td>
+                                @(item.Inmueble.Propietario.Nombre + " " + item.Inmueble.Propietario.Apellido)
+                            </td>
+                            <td>
+                                @(item.Inquilino.Nombre + " " + item.Inquilino.Apellido)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                                <a asp-action="Delete" asp-route-id="@item.Id">Borrar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>

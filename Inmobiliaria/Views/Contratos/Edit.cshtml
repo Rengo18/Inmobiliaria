@@ -1,0 +1,50 @@
+﻿@model Inmobiliaria.Models.Contrato
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Contrato</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <div>
+            <form asp-action="Edit">
+                <div class="form-group">
+                    <label asp-for="InmuebleId" class="control-label">Direccion @ViewBag.NombreInmueble</label>
+                    <p> Propietario @ViewBag.PropietarioNombre</p>
+                    <input type="hidden" asp-for="InmuebleId" value=@ViewBag.InmuebleId />
+                </div>             
+                <div class="form-group">
+                    <label asp-for="InquilinoId" class="control-label">Inquilino @ViewBag.InquilinoNombre</label>
+                    <input type="hidden" asp-for="InquilinoId" value=@ViewBag.InquilinoId />
+                </div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="FechaInicio" class="control-label"></label>
+                    <input asp-for="FechaInicio" class="form-control" value=@ViewBag.FechaInicio  />
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="FechaCierre" class="control-label"></label>
+                    <input asp-for="FechaCierre" class="form-control" value=@ViewBag.FechaCierre/>
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="Monto" class="control-label"></label>
+                    <input asp-for="Monto" class="form-control" value=@Model.Monto />
+                </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

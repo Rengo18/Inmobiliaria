@@ -24,7 +24,7 @@ namespace Inmobiliaria.Controllers
         // GET: Propietarios
         public ActionResult Index()
         {
-            //IList<Propietario> propietarios = contexto.Propietario.Select(x => x).ToList();
+          
             return View();
         }
         [Authorize(Policy = "Administrador")]
@@ -34,14 +34,9 @@ namespace Inmobiliaria.Controllers
             return View(pro);
         }
 
-        // GET: Propietarios/Details/5
-        public ActionResult Details(int id)
-        {   
-            return View();
-        }
+
+
         [HttpGet]
-
-
         // GET: Propietarios/Create
         [Authorize(Policy = "Administrador")]
         public ActionResult Create()

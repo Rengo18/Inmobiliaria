@@ -1,0 +1,50 @@
+﻿@model Inmobiliaria.Models.Inquilino
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<div class="Create_Propietario">
+    <div>
+        <h1>Registrar Inquilino</h1>
+        <form asp-action="Create">
+            <div>
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+
+
+                <label asp-for="Apellido" class="control-label"></label>
+                <input asp-for="Apellido" class="form-control" />
+
+
+                <label asp-for="Dni" class="control-label"></label>
+                <input asp-for="Dni" class="form-control" />
+
+
+                <label asp-for="Domicilio" class="control-label"></label>
+                <input asp-for="Domicilio" class="form-control" />
+
+
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+
+
+                <label asp-for="Telefono" class="control-label"></label>
+                <input asp-for="Telefono" class="form-control" />
+
+
+                <label asp-for="Lugar_Trabajo" class="control-label"></label>
+                <input asp-for="Lugar_Trabajo" class="form-control" />
+
+            </div>
+
+            <input type="submit" value="Registrar" style="margin-top:10px"/>
+
+
+        </form>
+        <span style="color:red">@ViewBag.registrado</span>
+    </div>
+</div>
+
+
