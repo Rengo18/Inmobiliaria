@@ -1,0 +1,62 @@
+﻿@model Inmobiliaria.Models.Pago
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+
+
+
+<div class="div_Editar">
+    <div class="div_Editar_contenido">
+        <h2>Editar Pago</h2>
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <h4>pago de: @ViewBag.InquilinoNombre</h4>
+                <input type="hidden" asp-for="ContratoId" value=@ViewBag.contratoId />
+            </div>
+            <div class="form-group">
+                <h4> Numero de pago a editar:@ViewBag.nroPago</h4>
+                <input type="hidden" asp-for="NroPago" value=@Model.NroPago />
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaPago" class="control-label"></label>
+                <input asp-for="FechaPago" type="date" class="form-control" value=@ViewBag.FechaPago />
+            </div>
+            <div class="form-group">
+                <label asp-for="Importe" class="control-label"></label>
+                <input asp-for="Importe" class="form-control" value=@Model.Importe />
+            </div>
+            <div class="form-group">
+                <label asp-for="Estado" class="control-label"></label>
+                <select asp-for="Estado">
+                    @if (Model.Estado == "pagado")
+                    {
+                        <option value="Pagado" selected>pagado</option>
+                    }
+                    else
+                    {
+                        <option value="Pagado">pagado</option>
+                    }
+                    @if (Model.Estado == "debe")
+                    {
+                        <option value="debe" selected>debe</option>
+                    }
+                    else
+                    {
+                        <option value="debe">debe</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Editar" class="btn btn-primary" />
+                <p style="color:red">@ViewBag.error</p>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+

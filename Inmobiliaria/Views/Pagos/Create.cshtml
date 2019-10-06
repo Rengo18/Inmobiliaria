@@ -1,0 +1,36 @@
+﻿@model Inmobiliaria.Models.Pago
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<div class="Create_Propietario ">
+    <div>
+        <h1>Registrar Pago</h1>
+        <h4>pago de: @ViewBag.InquilinoNombre</h4>
+        <form asp-action="Create">
+            <div>
+                <input type="hidden" asp-for="ContratoId" value=@ViewBag.contratoId />
+
+                <label asp-for="FechaPago" class="control-label"></label>
+                <input asp-for="FechaPago" type="date" class="form-control" />
+
+
+                <label asp-for="Importe" class="control-label"></label>
+                <input asp-for="Importe" class="form-control" />
+
+
+                <label asp-for="Estado" class="control-label"></label>
+                <select asp-for="Estado">
+                    <option value="Pagado">pagado</option>
+                    <option value="debe">debe</option>
+                </select>
+                <input type="submit" value="Registrar" class="btn btn-primary" />
+            </div>
+        </form>
+        <p style="color:red">@ViewBag.error</p>
+    </div>
+</div>
+
+

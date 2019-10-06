@@ -9,11 +9,17 @@ namespace Inmobiliaria.Models
     public class Pago
     {
         [Key]
-        public int IdPago { get; set; }
-        public String Estado { get; set; }
+        public int Id { get; set; }    
+        
+        [Display(Name = "Fecha de Pago")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaPago { get; set; }
         public Decimal Importe { get; set; }
-        public Contrato Contrato { get; set; }
+        public String Estado { get; set; }
+
+        public int ContratoId { get; set; }
+        public int NroPago { get; set; }
+        public virtual Contrato Contrato { get; set; }
 
     }
 }

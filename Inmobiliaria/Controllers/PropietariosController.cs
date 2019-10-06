@@ -108,6 +108,7 @@ namespace Inmobiliaria.Controllers
         public ActionResult Edit(int id)
         {
             Propietario propietario = contexto.Propietario.First(x => x.Id == id);
+            @ViewBag.nomrePropietario = propietario.Nombre + " " + propietario.Apellido;
             return View(propietario);
         }
 
@@ -118,8 +119,11 @@ namespace Inmobiliaria.Controllers
         {
             try
             {
+
                 if (propietario.Dni != 0 && propietario.Nombre != null && propietario.Apellido != null && propietario.Domicilio != null && propietario.Telefono != 0 && propietario.Email != null && propietario.Clave != null)
                 {
+                    Propietario propietarioedit = contexto.Propietario.First(x => x.Id == propietario.Id);
+                    @ViewBag.nomrePropietario = propietarioedit.Nombre + " " + propietarioedit.Apellido;
                     propietario.Clave = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                       password: propietario.Clave,
                       salt: System.Text.Encoding.ASCII.GetBytes("SALADA"),
@@ -136,12 +140,14 @@ namespace Inmobiliaria.Controllers
                         Clave = propietario.Clave,
                         Domicilio = propietario.Domicilio
                     };
+                   
                     contexto.Propietario.Update(p);
-                    contexto.SaveChanges();
-                    TempData["Editado"] = "Usuario Modificado";
+                    contexto.SaveChanges();                  
                     return RedirectToAction("ListaPropietarios");
                 }else
                 {
+                    Propietario propietarioedit = contexto.Propietario.First(x => x.Id == propietario.Id);
+                    @ViewBag.nomrePropietario = propietarioedit.Nombre + " " + propietarioedit.Apellido;
                     ViewBag.Error = "ingrese Todos los datos";
                     return View();
                 }
@@ -150,6 +156,8 @@ namespace Inmobiliaria.Controllers
             }
             catch(Exception ex)
             {
+                Propietario propietarioedit = contexto.Propietario.First(x => x.Id == propietario.Id);
+                @ViewBag.nomrePropietario = propietarioedit.Nombre + " " + propietarioedit.Apellido;
                 ViewBag.exception = ex;
                 return View();
             }

@@ -67,9 +67,9 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.Telefono)
                             </td>
-                            <td>                              
-                                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> 
-                                <a asp-action="create" asp-controller="Inmuebles" asp-route-id="@item.Id">Agregar Inmueble</a>  
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                                <a asp-action="create" asp-controller="Inmuebles" asp-route-id="@item.Id">Agregar Inmueble</a>|
                                 <a asp-action="Delete" asp-route-id="@item.Id">Borrar</a>
                             </td>
                         </tr>

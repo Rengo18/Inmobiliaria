@@ -4,24 +4,23 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
 
-<h4>Inmueble</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+
+
+<div class="div_Editar">
+    <div class="div_Editar_contenido">
+        <h2>EditarInmueble</h2>
+        <h4> Propietario: @ViewBag.NombrePropietario</h4>
         <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Direccion" class="control-label"></label>
                 <input asp-for="Direccion" class="form-control" />
-               
             </div>
             <div class="form-group">
                 <label asp-for="Uso" class="control-label"></label>
                 <select asp-for="Uso">
-                    @if(Model.Uso == "residenial")
+                    @if (Model.Uso == "residenial")
                     {
                         <option value="residencial" selected>residencial</option>
                     }
@@ -29,14 +28,15 @@
                     {
                         <option value="residencial">residencial</option>
                     }
-                    @if(Model.Uso == "comercial")
+                    @if (Model.Uso == "comercial")
                     {
-                        <option value="comercial" selected>comercial</option>   
+                        <option value="comercial" selected>comercial</option>
+
                     }
                     else
                     {
                         <option value="comercial">comercial</option>
-                    }                                                           
+                    }
                 </select>
             </div>
             <div class="form-group">
@@ -48,7 +48,7 @@
                     }
                     else
                     {
-                        <option value="casa" >casa</option>
+                        <option value="casa">casa</option>
                     }
                     @if (Model.Tipo == "local")
                     {
@@ -79,23 +79,23 @@
             <div class="form-group">
                 <label asp-for="Cantidad_Habitantes" class="control-label"></label>
                 <input asp-for="Cantidad_Habitantes" class="form-control" />
-               
+
             </div>
             <div class="form-group">
                 <label asp-for="Precio" class="control-label"></label>
                 <input asp-for="Precio" class="form-control" />
-                
+
             </div>
             <div class="form-group">
                 <label asp-for="Estado" class="control-label"></label>
                 <select asp-for="Estado">
                     @if (Model.Tipo == "disponible")
                     {
-                    <option value="disponible" selected>disponible</option>
+                        <option value="disponible" selected>disponible</option>
                     }
                     else
                     {
-                     <option value="disponible">disponible</option>
+                        <option value="disponible">disponible</option>
                     }
                     @if (Model.Tipo == "ocupada")
                     {
@@ -105,18 +105,18 @@
                     {
                         <option value="ocupada">ocupada</option>
                     }
-      
-                </select> 
+
+                </select>
             </div>
             <div class="form-group">
-                <label asp-for="PropietarioId" class="control-label">Propietario @ViewBag.NombrePropietario </label>
-                <input type="hidden" asp-for="PropietarioId" value=@ViewBag.PropietarioId/>
+                <input type="hidden" asp-for="PropietarioId" value=@ViewBag.PropietarioId />
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Editar" class="btn btn-primary" />
+                <p style="color:red">@ViewBag.error</p>
             </div>
         </form>
-        <p>@ViewBag.error</p>
+       
     </div>
 </div>
 

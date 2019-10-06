@@ -130,13 +130,13 @@ namespace Inmobiliaria.Controllers
                 }
                 else
                 {
-                    ViewBag.Error = "ingrese Todos los datos";
+                    ViewBag.error = "ingrese Todos los datos";
                     return View();
                 }
             }
             catch (Exception ex)
             {
-                ViewBag.Mensaje = ex;
+                ViewBag.error = ex;
                 return View();
             }
         }

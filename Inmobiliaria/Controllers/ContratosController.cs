@@ -62,9 +62,15 @@ namespace Inmobiliaria.Controllers
             try
             {
                 Inmueble inmueble = contexto.Inmueble.First(i => i.Id == contrato.InmuebleId);
-
+                
                 ViewBag.InmuebleId = inmueble.Id;
                 ViewBag.NombreInmueble = inmueble.Direccion;
+
+                if(inmueble.Estado== "ocupado")
+                {
+                    ViewBag.error = "este inmueble esta ocupado";
+                    return View();
+                }
 
                 if (contrato.InquilinoId == 0 ||contrato.FechaInicio==null || contrato.FechaCierre==null||contrato.Monto == 0)
                 {
@@ -77,6 +83,11 @@ namespace Inmobiliaria.Controllers
                     ViewBag.error = "Inquilino no registrado";
                     return View();
                 }
+                inmueble.Estado = "ocupado";
+
+                contexto.Inmueble.Update(inmueble);
+                contexto.SaveChanges();
+
                 Contrato con = new Contrato
                 {
                     FechaInicio = contrato.FechaInicio,
@@ -84,6 +95,7 @@ namespace Inmobiliaria.Controllers
                     Monto = contrato.Monto,
                     InmuebleId = contrato.InmuebleId,
                     InquilinoId = inquilino.Id,
+
                 };
                
 
@@ -125,37 +137,34 @@ namespace Inmobiliaria.Controllers
         {
             try
             {
-                // TODO: Add update logic here
 
-                return RedirectToAction(nameof(Index));
+                Inmueble inmueble = contexto.Inmueble.Include(x => x.Propietario).First(p => p.Id == contrato.InmuebleId);
+                ViewBag.NombreInmueble = inmueble.Direccion;
+                ViewBag.PropietarioNombre = inmueble.Propietario.Nombre + " " + inmueble.Propietario.Apellido;
+                ViewBag.InmuebleId = inmueble.Id;
+
+                ViewBag.FechaInicio = contrato.FechaInicio.ToString("yyyy-MM-dd");
+                ViewBag.FechaCierre = contrato.FechaCierre.ToString("yyyy-MM-dd");
+                Inquilino inquilino = contexto.Inquilino.First(x => x.Id == contrato.InquilinoId);
+                ViewBag.InquilinoNombre = inquilino.Nombre + "" + inquilino.Apellido;
+                ViewBag.InquilinoId = inquilino.Id;
+                if(contrato.FechaInicio==null || contrato.FechaCierre==null || contrato.Monto==0)
+                {
+                    ViewBag.error = "ingrese todos los datos";
+                    return View();
+                }
+
+                contexto.Contrato.Update(contrato);
+                contexto.SaveChanges();
+
+                return RedirectToAction("ListaContratos");
             }
-            catch
+            catch(Exception ex)
             {
+                ViewBag.error = ex;
                 return View();
             }
         }
-        [Authorize(Policy = "Administrador")]
-        // GET: Contratos/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-        [Authorize(Policy = "Administrador")]
-        // POST: Contratos/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+                
     }
 }

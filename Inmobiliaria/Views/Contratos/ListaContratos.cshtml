@@ -64,7 +64,8 @@
                             </td>
                             <td>
                                 <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                                <a asp-action="Delete" asp-route-id="@item.Id">Borrar</a>
+                                <a asp-action="ListaPagosPorContrato" asp-controller="Pagos" asp-route-id="@item.Id">Ver Pagos</a>|
+                                <a asp-action="create" asp-controller="Pagos" asp-route-id="@item.Id">Registrar Pago</a>
                             </td>
                         </tr>
                     }

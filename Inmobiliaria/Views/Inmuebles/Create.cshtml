@@ -4,62 +4,54 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
 
-<h4>Inmueble</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+
+<div class="Create_Propietario ">
+    <div>
+        <h1>Registrar Inmueble</h1>
+        <h4>Propietario:@ViewBag.NombrePropietario</h4>
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div>
                 <label asp-for="Direccion" class="control-label"></label>
                 <input asp-for="Direccion" class="form-control" />
-                
-            </div>
-            <div class="form-group">
-                <label asp-for="Uso" class="control-label"></label>               
+
+                <label asp-for="Uso" class="control-label"></label>
                 <select asp-for="Uso">
                     <option value="residencial" selected>residencial</option>
                     <option value="comercial">comercial</option>
                 </select>
 
-            </div>
-            <div class="form-group">
-                <label asp-for="Tipo" class="control-label"></label>              
+                <label asp-for="Tipo" class="control-label"></label>
                 <select asp-for="Tipo">
                     <option value="casa" selected>casa</option>
                     <option value="local">local</option>
                     <option value="deposito">deposito</option>
                     <option value="departamento">departamento</option>
                 </select>
-            </div>
-            <div class="form-group">
+
+
                 <label asp-for="Cantidad_Habitantes" class="control-label"></label>
                 <input asp-for="Cantidad_Habitantes" class="form-control" />
-               
-            </div>
-            <div class="form-group">
+
+
+
                 <label asp-for="Precio" class="control-label"></label>
                 <input asp-for="Precio" class="form-control" />
-               
-            </div>
-            <div class="form-group">
+
+
                 <label asp-for="Estado" class="control-label"></label>
                 <select asp-for="Estado">
                     <option value="disponible" selected>disponible</option>
-                    <option value="ocupada">ocupada</option>
-                </select>             
+                    <option value="ocupado">ocupada</option>
+                </select>
+
+                <input value=@ViewBag.PropietarioId asp-for="PropietarioId" class="form-control" type="hidden">
             </div>
-            <div class="form-group">
-                <label asp-for="PropietarioId" class="control-label">Propietario @ViewBag.NombrePropietario</label>
-                <input value=@ViewBag.PropietarioId asp-for="PropietarioId" class ="form-control" type="hidden">
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+
+            <input type="submit" value="Registrar" class="btn btn-primary" />
+
         </form>
-        <p>@ViewBag.error</p>
+        <p style="color:red">@ViewBag.error</p>
     </div>
 </div>
 

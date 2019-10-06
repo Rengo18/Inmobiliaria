@@ -95,4 +95,81 @@
 }
 
 
- 
+/*Editar*/
+.div_Editar{
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;   
+   
+}
+h1,h2,h3,h4,h5,h6{
+    margin:0;
+}
+.div_Editar_contenido {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 5px;
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;s
+}
+
+.div_Editar_contenido form > div{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    margin-bottom:10px;
+}
+
+
+.div_Editar_contenido form > div >input{
+  border: 1px solid gray;
+border-radius: 5px;
+padding: 5px;
+height: 20px;
+outline: none;
+}
+.div_Editar_contenido form > div >select{
+  border: 1px solid gray;
+border-radius: 5px;
+height: 30px;
+outline: none;
+}
+
+/*Delete*/
+
+.div_delete{
+    width:100%;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.div_delete_contenido {
+    background-color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:5px;
+    padding:10px;
+    flex-direction:column;
+
+}
+
+ .div_delete_contenido > dl > dt,dd {
+        text-align:center;
+        margin:0;
+    }
+.div_delete_contenido >dl >dt{
+    border:1px solid black;
+    background-color:black;
+    color:white;
+    margin:5px;
+}

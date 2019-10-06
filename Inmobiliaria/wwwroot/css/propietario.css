@@ -31,12 +31,24 @@
             flex-wrap:wrap;
             flex-direction:column;
         }
+        .Create_Propietario form div > label{
+            margin-top:5px;
+        }
         .Create_Propietario form div > input {
             border: 1px solid gray;
             border-radius: 5px;
             padding: 5px;
+            height: 20px;
+            outline: none;
+            margin-bottom: 10px;
+        }
+        .Create_Propietario form div > select {
+            border: 1px solid gray;
+            border-radius: 5px;
             height: 30px;
             outline: none;
+            margin-bottom: 10px;
+
         }
     .Create_Propietario  a {
         margin-top :5px;
@@ -69,9 +81,7 @@
     text-decoration:none;
    
 }
-.tableListaPropietario > tbody > tr > td:last-child a{
-        border-right: 1px solid black;
-    } 
+
 
 .div_tabla {
     width: 100vw;
